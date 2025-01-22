@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Basica Con TypeScript</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="calculator-container">
+        <h1>Calculadora Basica Con TypeScript</h1>
+        <div class="input-container">
+            <input id="valor1" type="number" placeholder="Ingresa el Primer Numero"><br><br>
+            <input id="valor2" type="number" placeholder="Ingresa el Segundo Numero"><br>
+        </div>
+        <div class="buttons-container">
+            <button onclick="calculadora('suma')">+</button>
+            <button onclick="calculadora('resta')">-</button>
+            <button onclick="calculadora('multiplicacion')">×</button>
+            <button onclick="calculadora('division')">÷</button>
+        </div>
+        <div class="result-container">
+            <h2>Resultado:</h2>
+            <p id="resultado">------</p>
+        </div>
+    </div>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
