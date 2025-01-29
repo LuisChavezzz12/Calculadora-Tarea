@@ -1,36 +1,52 @@
 "use strict";
-const val1 = document.getElementById("valor1");
-const val2 = document.getElementById("valor2");
-const res = document.getElementById("resultado");
-function calculadora(operacion) {
-    const valor1 = parseFloat(val1.value);
-    const valor2 = parseFloat(val2.value);
-    if (isNaN(valor1) || isNaN(valor2)) {
-        res.textContent = "Por favor ingresa números válidos";
+let transacciones = [];
+let balanceTotal = 0;
+function agregarTransaccion(tipo) {
+    const montoInput = document.getElementById("monto");
+    const descripcionInput = document.getElementById("descripcion");
+    const monto = parseFloat(montoInput.value);
+    const descripcion = descripcionInput.value.trim();
+    if (isNaN(monto) || monto <= 0) {
+        alert("El monto debe ser un número positivo.");
         return;
     }
-    let resultado;
-    switch (operacion) {
-        case "suma":
-            resultado = valor1 + valor2;
-            break;
-        case "resta":
-            resultado = valor1 - valor2;
-            break;
-        case "multiplicacion":
-            resultado = valor1 * valor2;
-            break;
-        case "division":
-            if (valor2 === 0) {
-                resultado = "Error Matemático, NO se puede dividir entre 0";
-            }
-            else {
-                resultado = valor1 / valor2;
-            }
-            break;
-        default:
-            resultado = "Operación no válida";
-            break;
+    if (descripcion === "") {
+        alert("La descripción no puede estar vacía.");
+        return;
     }
-    res.textContent = resultado.toString();
+    if (tipo === "gasto" && monto > balanceTotal) {
+        alert("No puedes gastar más de lo que tienes en el balance.");
+        return;
+    }
+    const nuevaTransaccion = {
+        id: Date.now(),
+        monto,
+        descripcion,
+        tipo,
+    };
+    transacciones.push(nuevaTransaccion);
+    actualizarBalance();
+    mostrarTransacciones();
+    montoInput.value = "";
+    descripcionInput.value = "";
+}
+function actualizarBalance() {
+    const ingresos = transacciones
+        .filter((t) => t.tipo === "ingreso")
+        .reduce((sum, t) => sum + t.monto, 0);
+    const gastos = transacciones
+        .filter((t) => t.tipo === "gasto")
+        .reduce((sum, t) => sum + t.monto, 0);
+    balanceTotal = ingresos - gastos;
+    document.getElementById("balance").textContent = balanceTotal.toFixed(2);
+}
+function mostrarTransacciones() {
+    const historial = document.getElementById("historial");
+    historial.innerHTML = "";
+    transacciones.forEach((transaccion) => {
+        const li = document.createElement("li");
+        li.textContent = `${transaccion.descripcion}: $${transaccion.monto.toFixed(2)}`;
+        li.classList.add(transaccion.tipo);
+        historial.appendChild(li);
+    });
 }
