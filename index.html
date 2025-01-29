@@ -1,35 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Basica Con TypeScript</title>
+    <title>Gestión de Ingresos y Gastos</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="calculator-container">
-        <h1>Calculadora Basica Con TypeScript</h1>
-        <div class="input-container">
-            <input id="valor1" type="number" placeholder="Ingresa el Primer Numero"><br><br>
-            <input id="valor2" type="number" placeholder="Ingresa el Segundo Numero"><br>
-        </div>
-        <div class="buttons-container">
-            <button onclick="calculadora('suma')">+</button>
-            <button onclick="calculadora('resta')">-</button>
-            <button onclick="calculadora('multiplicacion')">×</button>
-            <button onclick="calculadora('division')">÷</button>
-        </div>
-        <div class="result-container">
-            <h2>Resultado:</h2>
-            <p id="resultado">-----</p>
-        </div>
-        <div>
-            <h3>Luis Jesus Chavez Vargas</h3>
-            <h3>Grado: 5to -- Grupo: C</h3>
-        </div>
+    <div class="titulo">
+        <h1>TRANSA MEX</h1>
     </div>
+    <div class="container">
+        <h2>Gestión de Ingresos y Gastos</h2>
+        <input type="number" id="monto" placeholder="Monto">
+        <input type="text" id="descripcion" placeholder="Descripción">
+        <button onclick="agregarTransaccion('ingreso')">Agregar Ingreso</button>
+        <button onclick="agregarTransaccion('gasto')">Agregar Gasto</button>
+
+        <h3 class="balance">Balance: <span id="balance">0</span></h3>
+        <h3>Historial</h3>
+        <ul id="historial"></ul>
+    </div>
+
     <script src="./js/index.js"></script>
 </body>
 
